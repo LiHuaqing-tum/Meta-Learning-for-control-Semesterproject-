@@ -1,0 +1,75 @@
+<mujoco model="panda push scene">
+  <!-- 仅保留必要设置 -->
+  <compiler angle="radian"
+            autolimits="true"
+            meshdir="../mj_assets/franka_emika_panda/assets"/>
+
+  <option integrator="implicitfast" noslip_iterations="3" timestep="0.002" cone="pyramidal">
+    <flag multiccd="enable" warmstart="enable"/>
+  </option>
+
+  <!-- Panda（无夹爪） -->
+  <include file="../mj_assets/franka_emika_panda/mjx_panda_nohand.xml"/>
+
+  <statistic center="0.5 0 0.8" extent="1.2"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8"
+             width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 2.0" dir="0 0 -1" directional="true"/>
+    <camera name="watching" pos="2.0 -1.5 1.5" xyaxes="0.6 0.6 0.0 -0.3 0.3 0.9"/>
+
+    <!-- 地面（纯视觉） -->
+    <geom name="floor" type="plane" size="0 0 0.05" material="groundplane"/>
+
+    <!-- ========= 主直线（x=0，沿 +y 方向） ========= -->
+    <!-- 1) 蓝色可推立方体（起点，离机械臂最近） -->
+    <body name="pushable_block" pos="0.0 0.40 0.06" quat="1 0 0 0">
+      <!-- 方块半高=0.06，z=0.06 正好落地 -->
+      <joint type="free" damping="0.01" name="block_joint"/>
+      <geom name="pushable_geom" mass="0.5" type="box" size="0.06 0.06 0.06"
+            rgba="0.2 0.6 0.9 1" friction="1.0 0.005 1e-4" condim="6"
+            solref="0.008 1" solimp="0.95 0.99 0.001"/>
+      <site name="block_site" pos="0 0 0" size="0.03" type="sphere"/>
+    </body>
+
+    <!-- 2) 绿色障碍（中间） -->
+    <body name="obstacle_block" pos="0.0 0.90 0.05">
+      <!-- 障碍半高=0.05，z=0.05 正好落地 -->
+      <geom name="obstacle_geom" type="box" size="0.08 0.08 0.05"
+            rgba="0.3 0.7 0.3 1" friction="1.0 0.005 1e-4" condim="6"
+            solref="0.008 1" solimp="0.95 0.99 0.001"/>
+    </body>
+
+    <!-- 2b) 蓝色中间停留区域（远离方块，位于障碍右前方以形成大弧线） -->
+    <!-- 选点：x=+0.55 (侧向偏移)，y=0.95 (略在障碍前)，z=0.01 作为“地贴” -->
+    <body name="intermediate_area" pos="0.55 0.95 0.01">
+      <!-- 做成长方形，让通过/停留判断更宽容；纯视觉，不参与碰撞 -->
+      <geom name="intermediate_zone" type="box" size="0.18 0.12 0.01"
+            rgba="0 0 1 0.30" contype="0" conaffinity="0"/>
+      <site name="intermediate_site" pos="0 0 0.02" size="0.18" type="box" rgba="0 0 1 0.50"/>
+    </body>
+
+    <!-- 3) 红色目标区域（最远，纯视觉标记） -->
+    <body name="target_area" pos="0.0 1.40 0.01">
+      <geom name="target_zone" type="box" size="0.15 0.15 0.01"
+            rgba="1 0 0 0.3" contype="0" conaffinity="0"/>
+      <site name="target_site" pos="0 0 0.02" size="0.15" type="box" rgba="1 0 0 0.5"/>
+    </body>
+    <!-- ========= 主直线结束 ========= -->
+
+  </worldbody>
+</mujoco>
+
