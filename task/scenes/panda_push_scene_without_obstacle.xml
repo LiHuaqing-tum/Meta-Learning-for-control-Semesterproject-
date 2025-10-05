@@ -51,6 +51,7 @@
       <geom name="obstacle_geom" type="box" size="0.08 0.08 0.05"
             rgba="0.3 0.7 0.3 1" friction="1.0 0.005 1e-4" condim="6"
             solref="0.008 1" solimp="0.95 0.99 0.001"/>
+      <site name="obstacle_site" pos="0 0 0" size="0.01" type="sphere" rgba="0.3 0.7 0.3 1"/>
     </body>
 
     <!-- 2b) 蓝色中间停留区域（远离方块，位于障碍右前方以形成大弧线） -->
