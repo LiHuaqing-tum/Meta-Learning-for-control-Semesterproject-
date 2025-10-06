@@ -206,7 +206,7 @@
      forcerange="-12 12" ctrlrange="-2.8973 2.8973"/>
     <position class="panda" name="actuator6" joint="joint6" kp="300" kv="2" forcerange="-12 12"
       ctrlrange="-0.0175 3.7525"/>
-    <position class="panda" name="actuator7" joint="joint7" kp="300" kv="2" forcerange="-12 12"/>
+    <position class="panda" name="actuator7" joint="joint7" kp="300" kv="2" forcerange="-12 12" ctrlrange="-2.8973 2.8973"/>
   </actuator>
 
   <contact>
