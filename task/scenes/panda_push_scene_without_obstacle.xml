@@ -4,7 +4,8 @@
             autolimits="true"
             meshdir="../mj_assets/franka_emika_panda/assets"/>
 
-  <option integrator="implicitfast" noslip_iterations="3" timestep="0.002" cone="pyramidal">
+  <option integrator="implicitfast" noslip_iterations="3" timestep="0.002" cone="pyramidal" tolerance="0" iterations="10">
+
     <flag multiccd="enable" warmstart="enable"/>
   </option>
 
