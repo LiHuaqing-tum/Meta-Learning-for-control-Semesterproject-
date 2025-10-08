@@ -203,6 +203,7 @@
     <motor class="panda" name="actuator7" joint="joint7" gear="1" ctrlrange="-12 12"/>
   </actuator>
 
+
   <contact>
     <exclude body1="link0" body2="link1"/>
   </contact>
