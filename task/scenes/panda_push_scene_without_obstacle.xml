@@ -14,7 +14,6 @@
           warmstart="enable"
           multiccd="enable"/>
 
-    <flag multiccd="enable" warmstart="enable"/>
 
   <!-- Panda（无夹爪） -->
   <include file="../mj_assets/franka_emika_panda/mjx_panda_nohand.xml"/>
