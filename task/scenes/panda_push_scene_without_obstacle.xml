@@ -13,7 +13,6 @@
          cone="pyramidal"/>
 
     <flag multiccd="enable" warmstart="enable"/>
-  </option>
 
   <!-- Panda（无夹爪） -->
   <include file="../mj_assets/franka_emika_panda/mjx_panda_nohand.xml"/>
