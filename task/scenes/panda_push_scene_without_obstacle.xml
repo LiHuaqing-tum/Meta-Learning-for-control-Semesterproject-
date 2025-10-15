@@ -5,16 +5,16 @@
             meshdir="../mj_assets/franka_emika_panda/assets"/>
   
   <option integrator="implicitfast"
-          noslip_iterations="3"
-          timestep="0.002"
+          noslip_iterations="1"
+          timestep="0.001"
           cone="pyramidal"
           tolerance="0"
-          iterations="10"
+          iterations="1"
           solver="Newton"
-          ls_iterations="4">
-  
+          ls_iterations="1">
     <flag multiccd="enable" warmstart="enable"/>
   </option>
+
 
 
   <!-- Panda（无夹爪） -->
